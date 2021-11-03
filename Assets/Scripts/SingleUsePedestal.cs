@@ -18,8 +18,6 @@ public class SingleUsePedestal : PedestalControler
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //print("Activate spikes");
-
             /*
              * Activate/Deactivate Spikes
              * */
@@ -28,6 +26,12 @@ public class SingleUsePedestal : PedestalControler
             {
                 spike.gameObject.SetActive(false);
             }
+
+
+            if (CameraSequence != null)
+                CameraSequence.Play();
+            else
+                Debug.LogError($"No playable Director component on  {gameObject.name}.");
         }
     }
 }

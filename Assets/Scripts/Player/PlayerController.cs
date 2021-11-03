@@ -8,23 +8,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     [Header("Movement")]
-    [SerializeField] float movementSpeed = 2f;
+    [SerializeField] float movementSpeed = 8f;
     [SerializeField] GameObject playerCamera;
     float TurnSmoothTime = 0.1f;
     float TurnSmoothVelocity;
 
 
     [Header("Jumping")]
-    [SerializeField] float JumpForce = 5f;
-    [SerializeField] float FallMultiplier = 1.5f;
+    float yVelocity;
+    float gravity = -9.81f;
+    float JumpForce = 27f;
+    float FallMultiplier = 10f;
 
-    Rigidbody rb;
+
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -43,24 +45,29 @@ public class PlayerController : MonoBehaviour
 
             moveDir = Quaternion.Euler(0, angle, 0).normalized * Vector3.forward;
 
-            controller.Move(moveDir * movementSpeed * Time.deltaTime);
         }
+
+        controller.Move((moveDir * movementSpeed + CheckJump()) * Time.deltaTime);
+
     }
 
-    private void CheckJump()
+    private Vector3 CheckJump()
     {
-        if (Input.GetButtonDown("Jump"))
+
+        if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {
-            rb.velocity = Vector3.up * JumpForce;
+            yVelocity = JumpForce;
         }
-        if (rb.velocity.y < 0)
+        if (!controller.isGrounded)
         {
-            rb.velocity += Vector3.up * Physics.gravity.y * FallMultiplier * Time.deltaTime;
+            yVelocity += gravity * (FallMultiplier-2) * Time.deltaTime;
         }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if (!controller.isGrounded && !Input.GetButton("Jump"))
         {
-            rb.velocity += Vector3.up * Physics.gravity.y * (FallMultiplier - 1) * Time.deltaTime;
+            yVelocity += gravity * (FallMultiplier - 1) * Time.deltaTime;
         }
+
+        return new Vector3(0,yVelocity,0);
     }
 
 }

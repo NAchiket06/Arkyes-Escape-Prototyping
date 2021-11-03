@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PedestalControler : MonoBehaviour
 {
     // Parent gameobject that will be looped through to get all the list of spikes
-    [SerializeField] public GameObject SpikesParent;
+    [SerializeField] protected GameObject SpikesParent;
 
+    [SerializeField] protected List<GameObject> Spikes;
 
-    [SerializeField] public List<GameObject> Spikes;
+    [SerializeField] protected PlayableDirector CameraSequence;
     
+
     void Start()
     {
         
