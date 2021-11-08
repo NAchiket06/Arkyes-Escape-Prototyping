@@ -21,11 +21,13 @@ namespace Controllers.Pedestal
             if (other.gameObject.CompareTag("Player"))
             {
                 // Activate/Deactivate Spikes
-
-
                 UpdateSpikes(false);
 
+                // Play camera sequence if assigned
                 PlayCameraSequence();
+
+                // Disable the trigger
+                gameObject.GetComponent<BoxCollider>().enabled = false;
 
             }
         }
