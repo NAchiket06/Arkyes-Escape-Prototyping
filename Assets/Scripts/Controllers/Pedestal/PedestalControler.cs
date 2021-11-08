@@ -5,8 +5,9 @@ using UnityEngine.Playables;
 
 namespace Controllers.Pedestal
 {
+
     public class PedestalControler : MonoBehaviour
-    {
+    { 
         // Parent gameobject that will be looped through to get all the list of spikes
         [SerializeField] protected GameObject SpikesParent;
 

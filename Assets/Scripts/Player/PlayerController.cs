@@ -38,7 +38,6 @@ namespace Player
                 transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
 
                 moveDir = Quaternion.Euler(0, angle, 0).normalized * Vector3.forward;
-
             }
 
             controller.Move((moveDir * movementSpeed + CheckJump()) * Time.deltaTime);
