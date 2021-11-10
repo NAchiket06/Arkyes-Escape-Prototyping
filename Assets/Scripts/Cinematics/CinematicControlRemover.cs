@@ -3,34 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using Player;
-public class CinematicControlRemover : MonoBehaviour
+
+namespace Cinematics
 {
-
-    PlayerController player;
-    PlayableDirector playableDirector;
-
-    void Start()
+    public class CinematicControlRemover : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        playableDirector = GetComponent<PlayableDirector>();
-        playableDirector.played += DisablePlayerControl;
-        playableDirector.stopped += EnablePlayerControl;
+        PlayerController player;
+        PlayableDirector playableDirector;
+
+        void Start()
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+            playableDirector = GetComponent<PlayableDirector>();
+            playableDirector.played += DisablePlayerControl;
+            playableDirector.stopped += EnablePlayerControl;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        void DisablePlayerControl(PlayableDirector pd)
+        {
+            player.enabled = false;
+
+        }
+
+        void EnablePlayerControl(PlayableDirector pd)
+        {
+            player.enabled = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void DisablePlayerControl(PlayableDirector pd)
-    {
-        player.enabled = false;
-    }
-
-    void EnablePlayerControl(PlayableDirector pd)
-    {
-        player.enabled = true;
-    }
 }

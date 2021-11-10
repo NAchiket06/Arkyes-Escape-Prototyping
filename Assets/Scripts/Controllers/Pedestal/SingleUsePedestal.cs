@@ -9,11 +9,15 @@ namespace Controllers.Pedestal
         int spikesParentChildCount;
         private void Start()
         {
-            spikesParentChildCount = SpikesParent.transform.childCount;
 
-            for (int i = 0; i < spikesParentChildCount; i++)
+            if (SpikesParent != null)
             {
-                Spikes.Add(SpikesParent.transform.GetChild(i).gameObject);
+                spikesParentChildCount = SpikesParent.transform.childCount;
+
+                for (int i = 0; i < spikesParentChildCount; i++)
+                {
+                    Spikes.Add(SpikesParent.transform.GetChild(i).gameObject);
+                }
             }
         }
         private void OnTriggerEnter(Collider other)
